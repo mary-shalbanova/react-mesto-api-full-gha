@@ -1,0 +1,38 @@
+.profile__edit-avatar {
+  cursor: pointer;
+  position: relative;
+  margin-right: 30px;
+}
+
+.profile__edit-avatar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('../../../images/pen.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 26px 26px;
+  opacity: 0;
+  z-index: 1;
+  transition: opacity 0.2s;
+}
+
+.profile__edit-avatar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.profile__edit-avatar:hover::before,
+.profile__edit-avatar:hover::after {
+  opacity: 1;
+}

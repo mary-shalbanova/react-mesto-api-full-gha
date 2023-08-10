@@ -1,0 +1,13 @@
+.popup__image-wrapper {
+  display: flex;
+  padding-top: 90px;
+  padding-bottom: 90px;
+  position: relative;
+}
+
+@media (max-width: 530px) {
+  .popup__image-wrapper {
+    padding-top: 136px;
+    padding-bottom: 133px;
+  }
+}

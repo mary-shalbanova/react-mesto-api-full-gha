@@ -1,0 +1,13 @@
+.form__textfields {
+  padding: 50px 0 12px;
+  border: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 530px) {
+  .form__textfields {
+    padding: 75px 0 7px;
+  }
+}

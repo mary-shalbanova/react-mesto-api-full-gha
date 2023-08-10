@@ -1,0 +1,8 @@
+.form__submit-button_type_login {
+  background: #ffffff;
+  color: #000000;
+}
+
+.form__submit-button_type_login:hover {
+  opacity: 0.85;
+}

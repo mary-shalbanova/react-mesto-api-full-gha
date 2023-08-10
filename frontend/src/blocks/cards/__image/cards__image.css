@@ -1,0 +1,10 @@
+.cards__image {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  object-position: center;
+  cursor: pointer;
+  display: block;
+  background-color: #000;
+  color: #fff;
+}

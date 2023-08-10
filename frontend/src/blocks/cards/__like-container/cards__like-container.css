@@ -1,0 +1,6 @@
+.cards__like-container {
+  display: flex;
+  flex-direction: column;
+  justify-items: space-between;
+  gap: 3px;
+  }

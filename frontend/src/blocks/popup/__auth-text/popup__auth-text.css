@@ -1,0 +1,9 @@
+.popup__auth-text {
+  text-align: center;
+  margin: 0 0 20px;
+  padding: 0;
+  font-family: Inter;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 29px;
+}
