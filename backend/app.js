@@ -35,9 +35,9 @@ app.use(errorLogger);
 app.use(errors());
 app.use(errorHandler);
 
-process.on('uncaughtException', (err, origin) => {
-  console.log(`${origin}${err.name} с текстом ${err.message} не обработана`);
-});
+// process.on('uncaughtException', (err, origin) => {
+//   console.log(`${origin}${err.name} с текстом ${err.message} не обработана`);
+// });
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
