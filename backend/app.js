@@ -13,7 +13,7 @@ const routes = require('./routes');
 const errorHandler = require('./middlewares/error-handler');
 
 const app = express();
-app.use(cors({ origin: ['http://localhost:3000'], credentials: true }));
+app.use(cors({ origin: ['http://localhost:3000', 'http://mesto.mary.nomoreparties.co/'], credentials: true }));
 mongoose.connect(DB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: false,

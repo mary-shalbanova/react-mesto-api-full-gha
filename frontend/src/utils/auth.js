@@ -1,4 +1,5 @@
-export const BASE_URL = 'http://localhost:4000';
+// export const BASE_URL = 'http://localhost:4000';
+export const BASE_URL = 'http://api.mesto.mary.nomoreparties.co';
 
 export async function register(email, password) {
   try {
