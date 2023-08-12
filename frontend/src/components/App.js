@@ -53,6 +53,7 @@ function App() {
         }
       } catch (err) {
       console.error(err);
+      setIsLoggedIn(false);
     }
   }
 
@@ -93,7 +94,7 @@ function App() {
     async function fetchCardsData() {
       try {
         const cardList = await api.getCardList();
-        setCards(cardList);
+        setCards(cardList.reverse());
       } catch (err) {
         console.error(err);
       }
@@ -261,9 +262,9 @@ function App() {
             path='/sign-in'
             element={
               <Login
-                handleLogin={() => setIsLoggedIn(true)}
-                setEmail={setEmail}
                 onError={handleLoginError}
+                handleLogin={()=> setIsLoggedIn(true)}
+                setEmail={setEmail}
               />
             }
           />

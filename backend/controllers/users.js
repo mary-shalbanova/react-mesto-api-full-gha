@@ -6,10 +6,9 @@ const NotFoundError = require('../errors/not-found-err');
 const ConflictError = require('../errors/conflict-err');
 const UnauthorizedError = require('../errors/unauthorized-err');
 
-const {
-  STATUS_CODE_OK,
-  STATUS_CODE_CREATED,
-} = require('../utils/constants');
+const { STATUS_CODE_OK, STATUS_CODE_CREATED } = require('../utils/constants');
+
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 const getAllUsers = async (req, res, next) => {
   try {
@@ -114,16 +113,17 @@ const login = async (req, res, next) => {
       throw new UnauthorizedError('Неправильный логин или пароль');
     }
 
-    const token = jwt.sign({ _id: user._id }, 'secret-key', {
-      expiresIn: '7d',
-    });
+    const token = jwt.sign(
+      { _id: user._id },
+      NODE_ENV === 'production' ? JWT_SECRET : 'secret-key',
+      { expiresIn: '7d' },
+    );
 
-    res
-      .cookie('jwt', token, {
-        maxAge: 3600000 * 24 * 7,
-        httpOnly: true,
-        sameSite: true,
-      });
+    res.cookie('jwt', token, {
+      maxAge: 3600000 * 24 * 7,
+      httpOnly: true,
+      sameSite: true,
+    });
     res.send({ _id: user._id });
   } catch (err) {
     next(err);

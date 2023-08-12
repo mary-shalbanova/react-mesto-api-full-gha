@@ -6,14 +6,14 @@ const createUserValidation = celebrate({
     about: Joi.string().min(2).max(30),
     avatar: Joi.string().regex(/(https?:\/\/)(w{3}\.)?(\w-?)+\.[A-Za-z0-9](-\._~:\/?#\[]@!$&'()*\+,;=#?)?/),
     email: Joi.string().email().required(),
-    password: Joi.string().min(8).required(),
+    password: Joi.string().required(),
   }),
 });
 
 const authValidation = celebrate({
   body: Joi.object().keys({
     email: Joi.string().email().required(),
-    password: Joi.string().min(8).required(),
+    password: Joi.string().required(),
   }),
 });
 

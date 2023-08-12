@@ -1,12 +1,12 @@
 import { React, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import * as auth from '../utils/auth.js';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from '../hooks/useForm.js';
 import AuthForm from './AuthForm.js';
 
-function Login({ handleLogin, setEmail, onError }) {
+function Login({ onError, handleLogin, setEmail }) {
 
-  const {formValues, setFormValues, handleChange} = useForm({email: '', password:''})
+  const {formValues, handleChange} = useForm({email: '', password:''})
 
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -15,10 +15,15 @@ function Login({ handleLogin, setEmail, onError }) {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      await auth.authorize(formValues.email, formValues.password);
-      handleLogin();
-      navigate('/', { replace: true });
-      setEmail(formValues.email);
+      const res = await auth.authorize(formValues.email, formValues.password);
+      if (!res) {
+        onError();
+        setErrorMessage('Неверный логин или пароль');
+      } else {
+        handleLogin();
+        navigate('/', { replace: true });
+        setEmail(formValues.email);
+      }
     } catch (err) {
       console.error(err);
       onError();
