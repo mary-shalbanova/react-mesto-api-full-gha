@@ -100,7 +100,7 @@ class Api {
 
 export const api = new Api({
   // baseUrl: 'http://localhost:4000',
-  baseUrl: 'http://api.mesto.mary.nomoreparties.co',
+  baseUrl: 'https://api.mesto.mary.nomoreparties.co',
   headers: {
     // authorization: 'b732f751-073e-4fb6-8191-49059a9131b3',
     'Content-Type': 'application/json',
