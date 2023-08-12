@@ -14,12 +14,21 @@ const errorHandler = require('./middlewares/error-handler');
 
 const app = express();
 app.use(cors({ origin: ['http://localhost:3000'], credentials: true }));
+mongoose.connect(DB_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: false,
+});
 
 app.use(helmet());
 app.use(cookieParser());
 app.use(express.json());
 
 app.use(requestLogger);
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 app.use(routes);
 
 app.use(errorLogger);
@@ -28,11 +37,6 @@ app.use(errorHandler);
 
 process.on('uncaughtException', (err, origin) => {
   console.log(`${origin}${err.name} с текстом ${err.message} не обработана`);
-});
-
-mongoose.connect(DB_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: false,
 });
 
 app.listen(PORT, () => {
