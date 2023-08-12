@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://auth.nomoreparties.co';
+export const BASE_URL = 'http://localhost:4000';
 
 export async function register(email, password) {
   try {
@@ -24,6 +24,7 @@ export async function authorize(email, password) {
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include',
       body: JSON.stringify({ email, password }),
     });
     if (res.ok) {
@@ -34,14 +35,31 @@ export async function authorize(email, password) {
   }
 }
 
-export async function getContent(token) {
+export async function getContent() {
   try {
     const res = await fetch(`${BASE_URL}/users/me`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
       },
+      credentials: 'include',
+    });
+    if (res.ok) {
+      return res.json();
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function logout () {
+  try {
+    const res = await fetch(`${BASE_URL}/logout`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
     });
     if (res.ok) {
       return res.json();

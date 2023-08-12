@@ -16,7 +16,7 @@ function Register({ onRegister }) {
     e.preventDefault();
     try {
       const data = await auth.register(formValues.email, formValues.password);
-      if (data.data.email) {
+      if (data.email) {
         onRegister();
       }
     } catch (err) {

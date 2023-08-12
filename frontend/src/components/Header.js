@@ -1,16 +1,9 @@
 import React from 'react';
 import logo from '../images/logo.svg';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
-function Header({ email, setEmail }) {
+function Header({ email, signOut  }) {
   const location = useLocation();
-  const navigate = useNavigate();
-
-  function handleSignOut() {
-    localStorage.removeItem('token');
-    navigate('/sign-in', { replace: true });
-    setEmail('')
-  }
 
   return (
     <header className='header page__header'>
@@ -38,7 +31,7 @@ function Header({ email, setEmail }) {
             <li>
               <button
                 className='navbar__link navbar__button'
-                onClick={handleSignOut}
+                onClick={signOut}
               >
                 Выйти
               </button>

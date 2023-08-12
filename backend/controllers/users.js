@@ -122,11 +122,16 @@ const login = async (req, res, next) => {
       .cookie('jwt', token, {
         maxAge: 3600000 * 24 * 7,
         httpOnly: true,
-      })
-      .send({ _id: user._id });
+        sameSite: true,
+      });
+    res.send({ _id: user._id });
   } catch (err) {
     next(err);
   }
+};
+
+const logout = async (req, res) => {
+  res.status(200).clearCookie('jwt').send({ message: 'Выполнен выход' });
 };
 
 module.exports = {
@@ -137,4 +142,5 @@ module.exports = {
   updateUserInfo,
   updateAvatar,
   login,
+  logout,
 };

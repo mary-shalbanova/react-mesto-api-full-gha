@@ -43,16 +43,15 @@ function App() {
 
   async function checkToken() {
     try {
-      if (localStorage.getItem('token')) {
-        const token = localStorage.getItem('token');
-        const data = await auth.getContent(token);
+        const data = await auth.getContent();
         if (data) {
-          setEmail(data.data.email);
+          setEmail(data.email);
           setIsLoggedIn(true);
           navigate('/', { replace: true });
+        } else {
+          setIsLoggedIn(false);
         }
-      }
-    } catch (err) {
+      } catch (err) {
       console.error(err);
     }
   }
@@ -90,6 +89,7 @@ function App() {
   ]);
 
   React.useEffect(() => {
+    if (isLoggedIn) {
     async function fetchCardsData() {
       try {
         const cardList = await api.getCardList();
@@ -99,20 +99,22 @@ function App() {
       }
     }
     fetchCardsData();
-  }, []);
+  }
+  }, [isLoggedIn]);
 
   React.useEffect(() => {
+    if (isLoggedIn) {
     async function fetchUserData() {
       try {
         const userData = await api.getUserInfo();
-
         setCurrentUser(userData);
       } catch (err) {
         console.error(err);
       }
     }
     fetchUserData();
-  }, []);
+  }
+  }, [isLoggedIn]);
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
@@ -145,7 +147,7 @@ function App() {
 
   async function handleCardLike(card) {
     try {
-      const isLiked = card.likes.some((user) => user._id === currentUser._id);
+      const isLiked = card.likes.some((user) => user === currentUser._id);
       const newCard = await api.changeLikeCardStatus(card._id, isLiked);
       const newCards = cards.map((c) => (c._id === newCard._id ? newCard : c));
       setCards(newCards);
@@ -208,6 +210,13 @@ function App() {
     }
   }
 
+  async function handleSignOut() {
+    await auth.logout();
+    setIsLoggedIn(false);
+    navigate('/sign-in', { replace: true });
+    setEmail('')
+  }
+
   function handleLoginError() {
     setIsInfoTooltipOpen(true);
     setIsSuccessfulLogin(false);
@@ -230,7 +239,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='page__container'>
-        <Header email={email} setEmail={setEmail} />
+        <Header email={email} signOut={handleSignOut}/>
         <Routes>
           <Route
             path='/'

@@ -15,8 +15,7 @@ function Login({ handleLogin, setEmail, onError }) {
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      const data = await auth.authorize(formValues.email, formValues.password);
-      localStorage.setItem('token', data.token);
+      await auth.authorize(formValues.email, formValues.password);
       handleLogin();
       navigate('/', { replace: true });
       setEmail(formValues.email);

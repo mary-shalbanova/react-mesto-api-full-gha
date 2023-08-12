@@ -15,6 +15,7 @@ class Api {
   async getCardList() {
     const res = await fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
+      credentials: 'include',
     });
     return this._handleResponse(res);
   }
@@ -22,6 +23,7 @@ class Api {
   async getUserInfo() {
     const res = await fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
+      credentials: 'include',
     });
     return this._handleResponse(res);
   }
@@ -29,6 +31,7 @@ class Api {
   async editProfileInfo(userData) {
     const res = await fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
         name: userData.name,
@@ -41,6 +44,7 @@ class Api {
   async addNewCard(data) {
     const res = await fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
@@ -53,6 +57,7 @@ class Api {
   async deleteCard(cardId) {
     const res = await fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
+      credentials: 'include',
       headers: this._headers,
     });
     return this._handleResponse(res);
@@ -61,6 +66,7 @@ class Api {
   async putLike(cardId) {
     const res = await fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: 'PUT',
+      credentials: 'include',
       headers: this._headers,
     });
     return this._handleResponse(res);
@@ -69,6 +75,7 @@ class Api {
   async deleteLike(cardId) {
     const res = await fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: 'DELETE',
+      credentials: 'include',
       headers: this._headers,
     });
     return this._handleResponse(res);
@@ -81,6 +88,7 @@ class Api {
   async changeAvatar(image) {
     const res = await fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
         avatar: image,
@@ -91,9 +99,9 @@ class Api {
 }
 
 export const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-65',
+  baseUrl: 'http://localhost:4000',
   headers: {
-    authorization: 'b732f751-073e-4fb6-8191-49059a9131b3',
+    // authorization: 'b732f751-073e-4fb6-8191-49059a9131b3',
     'Content-Type': 'application/json',
   },
 });
